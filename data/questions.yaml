@@ -1,0 +1,449 @@
+# Sual bankı (müştəri dilində). Kodsuz redaktə olunur.
+# Mətnlər {az, en, ru} formasındadır (en/ru boş qalsa AZ göstərilir). Ədədi/neytral mətnlər (məs. 'AZ + EN') düz yazılır.
+# type: choice | text | email | languages
+# options[].kw  — açar sözlər: LLM-siz sürətli uyğunlaşdırma üçün (üç dilin sözləri bir siyahıda)
+# when.module   — yalnız həmin modul strukturda varsa soruşulur
+# ask: false    — soruşulmur, şablon dəyəri ilə avtomatik doldurulur
+# default       — YALNIZ ask:false (sabit standart) sahələr və 'Nümunə yoxdur' kimi faktiki cavab üçün. Asılan sahələrdə təxmin YOXDUR.
+# skippable     — false olarsa 'developer ilə dəqiqləşdirəcəm' seçimi göstərilmir (sayt növü, ad, məqsəd məcburidir)
+# skip_chip_label — sahəyə xas 'sonra göndərəcəm' düyməsi (məs. loqo)
+# when.field/in — başqa sahənin cavabı həmin dəyərlərdən biridirsə soruşulur
+# flow-dakı 'page_content' sahə deyil, xüsusi slotdur: struktur təsdiqlənəndən sonra hər səhifə üçün məzmun soruşulur (page_content_question)
+
+skip_chip: {az: 'Developer ilə dəqiqləşdirəcəm', en: 'I will clarify with the developer', ru: 'Уточню с разработчиком'}
+custom_default_chip: {az: 'Bilmirəm, developer qiymətləndirsin', en: 'I don''t know, let the developer estimate', ru: 'Не знаю, пусть оценит разработчик'}
+flow: [site_type, company_name, purpose, audience, existing_site, existing_site_url, structure, page_content, languages, manage_mode, domain_hosting, domain_name, seo_analytics, design_style, brand_assets, brand_logo, brand_colors, reference_sites, reference_screenshots, competitors, contact_details, social_links, map_location, contact_email, payment_provider, account_details, cv_details, deadline, approver, revision_rounds, materials, budget_range]
+structure_question:
+  chip_ok: {az: Struktur uyğundur, en: Structure looks good, ru: Структура подходит}
+  text: {az: 'Siz **{site_type}** seçdiniz. Bu növ sayt üçün aşağıdakı strukturu təklif edirəm. Çıxarmaq, əlavə etmək və ya dəyişmək istədiyiniz nə var? Cavabı yazın və ya kartdakı düymələrdən istifadə edin. Hər şey uyğundursa, "Struktur uyğundur" yazın.', en: 'You chose **{site_type}**. I suggest the structure below for this kind of site. What would you like to remove, add or change? Write it in the chat or use the buttons on the card. If everything fits, write "Structure looks good".', ru: 'Вы выбрали **{site_type}**. Для такого сайта я предлагаю структуру ниже. Что вы хотите убрать, добавить или изменить? Напишите в чате или используйте кнопки на карточке. Если всё подходит, напишите «Структура подходит».'}
+  why: {az: 'Struktur saytın əsas planıdır: səhifələr və modullar həm görünüşü, həm də qiyməti müəyyən edir.', en: 'The structure is the main plan of the site: pages and modules decide both its look and its price.', ru: 'Структура это основной план сайта: страницы и модули определяют и внешний вид, и стоимость.'}
+page_content_question:
+  why: {az: 'Məzmun hazır olmayanda sayt gecikir; kimin nəyi hazırlayacağını əvvəlcədən bilmək qrafiki dəqiqləşdirir.', en: 'Sites are delayed when content is not ready; knowing who prepares what makes the schedule realistic.', ru: 'Сайты задерживаются, когда контент не готов; знание о том, кто что готовит, делает график реалистичным.'}
+  text: {az: 'Səhifə: **{name}**. Orada hansı məzmun olacaq? Məsələn: mətnlər, şəkillər, məhsullar, sənədlər və onları kim hazırlayacaq.', en: 'Page: **{name}**. What content will go on it? For example: texts, images, products, documents and who will prepare them.', ru: 'Страница: **{name}**. Какой контент на ней будет? Например: тексты, изображения, товары, документы и кто их подготовит.'}
+  all_later_chip: {az: Bütün səhifələrin məzmununu sonra göndərəcəm, en: I will send the content for all pages later, ru: Контент всех страниц отправлю позже}
+custom_why: {az: 'Bu funksiya hazır kataloqda yoxdur, ona görə developer onu düzgün qiymətləndirmək üçün bu detalları bilməlidir.', en: 'This feature is not in our ready catalog, so the developer needs these details to estimate it properly.', ru: 'Этой функции нет в нашем готовом каталоге, поэтому разработчику нужны эти детали для правильной оценки.'}
+custom_questions:
+  who_uses: {az: 'Bu funksiyadan kimlər istifadə edəcək (müştərilər, işçilər, idarəçilər)?', en: 'Who will use this feature (customers, employees, administrators)?', ru: 'Кто будет пользоваться этой функцией (клиенты, сотрудники, администраторы)?'}
+  data_input: {az: 'Bu funksiyada hansı məlumatlar daxil ediləcək və ya göstəriləcək?', en: 'What data will be entered or shown in this feature?', ru: 'Какие данные будут вводиться или отображаться в этой функции?'}
+  outcome: {az: 'İstifadəçi bu funksiya ilə nəyə nail olmalıdır (gözlənilən nəticə)?', en: 'What should the user be able to achieve with this feature (expected result)?', ru: 'Чего пользователь должен достичь с помощью этой функции (ожидаемый результат)?'}
+  integrations: {az: 'Bu funksiya başqa sistemlə (1C, CRM, bank, API və s.) əlaqəli olmalıdırmı?', en: 'Should this feature connect to another system (1C, CRM, bank, API, etc.)?', ru: 'Должна ли эта функция быть связана с другой системой (1С, CRM, банк, API и т. д.)?'}
+fields:
+  site_type:
+    section: 1
+    skippable: false
+    label: {az: Sayt növü, en: Site type, ru: Тип сайта}
+    type: choice
+    required: true
+    question: {az: 'Hazırlamaq istədiyiniz saytın növü hansıdır?', en: 'What type of website do you want to build?', ru: 'Какой тип сайта вы хотите создать?'}
+    why: {az: 'Sayt növü hansı səhifələrin və funksiyaların lazım olacağını müəyyən edir.', en: 'The site type decides which pages and features you will need.', ru: 'Тип сайта определяет, какие страницы и функции вам понадобятся.'}
+    options:
+    - label: {az: Korporativ sayt, en: Corporate website, ru: Корпоративный сайт}
+      value: corporate
+      kw: [korporativ, şirkət, firma, corporate, company, корпоратив, компания, фирма]
+    - label: {az: Onlayn mağaza, en: Online store, ru: Интернет-магазин}
+      value: ecommerce
+      kw: [mağaza, e-ticarət, eticaret, satış, shop, store, ecommerce, e-commerce, online store, магазин, интернет-магазин, продаж]
+    - label: {az: Portfolio, en: Portfolio, ru: Портфолио}
+      value: portfolio
+      kw: [portfolio, şəxsi, işlərim, personal, портфолио, личный]
+    - label: {az: Landing page, en: Landing page, ru: Лендинг}
+      value: landing
+      kw: [landing, tək səhifə, bir səhifə, one page, single page, лендинг, одностраничн]
+    - label: {az: Rezervasiya / xidmət saytı, en: Booking / service website, ru: Сайт услуг / бронирования}
+      value: booking
+      kw: [rezervasiya, randevu, booking, reservation, appointment, бронирован, резервац, запись]
+    - label: {az: Xəbər saytı, en: News website, ru: Новостной сайт}
+      value: news
+      kw: [xəbər, xeber, news, qəzet, media, jurnalistika, новост, сми, газета]
+    - label: {az: Məktəb / təhsil saytı, en: School / education website, ru: Сайт школы / образования}
+      value: school
+      kw: [məktəb, mekteb, təhsil, tehsil, universitet, school, education, university, college, школа, образован, университет]
+    - label: {az: Kataloq / directory, en: Directory / listings, ru: Каталог / справочник}
+      value: directory
+      kw: [directory, kataloq, siyahı, elan, listings, catalog of companies, справочник, каталог компаний, объявлен]
+    - label: {az: Başqa növ, en: Other type, ru: Другой тип}
+      value: other
+      kw: [başqa, digər, other, another, different, другой, иной, друг]
+  company_name:
+    section: 1
+    skippable: false
+    label: {az: Layihə / şirkət adı, en: Project / company name, ru: Название проекта / компании}
+    type: text
+    required: true
+    question: {az: 'Şirkətinizin (və ya saytınızın) adı nədir?', en: 'What is the name of your company (or website)?', ru: 'Как называется ваша компания (или сайт)?'}
+    why: {az: 'Ad başlıqlarda, sənəddə və saytın məzmununda istifadə olunacaq.', en: 'The name is used in headings, in the document and in the site content.', ru: 'Название используется в заголовках, в документе и в содержимом сайта.'}
+  purpose:
+    section: 1
+    skippable: false
+    label: {az: Saytın məqsədi, en: Purpose of the website, ru: Цель сайта}
+    type: text
+    required: true
+    question: {az: 'Saytın əsas məqsədi nədir? Məsələn: xidmətləri tanıtmaq, məhsul satmaq, müraciət toplamaq.', en: 'What is the main purpose of the site? For example: promote services, sell products, collect inquiries.', ru: 'Какова основная цель сайта? Например: рассказать об услугах, продавать товары, собирать обращения.'}
+    why: {az: 'Məqsəd bizə saytın əsas səhifələrini və düymələrini düzgün planlamağa kömək edir.', en: 'The purpose helps us plan the main pages and buttons correctly.', ru: 'Цель помогает правильно спланировать основные страницы и кнопки.'}
+  audience:
+    section: 1
+    label: {az: Hədəf auditoriya, en: Target audience, ru: Целевая аудитория}
+    type: choice
+    required: true
+    question: {az: 'Saytı əsasən kimlər istifadə edəcək?', en: 'Who will mainly use the site?', ru: 'Кто в основном будет пользоваться сайтом?'}
+    why: {az: 'Auditoriya dil, dizayn və məzmunun tonunu müəyyən edir.', en: 'The audience shapes the language, design and tone of the content.', ru: 'Аудитория определяет язык, дизайн и тон контента.'}
+    options:
+    - label: {az: Fiziki şəxslər (B2C), en: Individuals (B2C), ru: Физические лица (B2C)}
+      value: b2c
+      kw: [fiziki, b2c, istehlakçı, adi insan, individual, individuals, consumer, customers, person, физич, частн, потребител]
+    - label: {az: Şirkətlər (B2B), en: Companies (B2B), ru: Компании (B2B)}
+      value: b2b
+      kw: [şirkət, b2b, biznes, companies, business, компан, бизнес]
+    - label: {az: Hər ikisi, en: Both, ru: И те и другие}
+      value: both
+      kw: [hər ikisi, her ikisi, hamı, both, all, оба, обе, все, и те и друг]
+    allow_other: true
+  existing_site:
+    section: 1
+    label: {az: Saytın vəziyyəti, en: Website status, ru: Состояние сайта}
+    type: choice
+    required: false
+    question: {az: 'Bu, sıfırdan yeni sayt olacaq, yoxsa mövcud saytın yenidən hazırlanması (redesign)?', en: 'Will this be a brand-new website, or a redesign of an existing one?', ru: 'Это будет новый сайт с нуля или редизайн существующего?'}
+    why: {az: 'Köhnə sayt varsa, məzmunu və linkləri itirməməyimiz üçün bunu bilməliyik.', en: 'If an old site exists, we must know it so we do not lose its content and links.', ru: 'Если старый сайт есть, нам нужно знать об этом, чтобы не потерять контент и ссылки.'}
+    options:
+    - label: {az: Yeni sayt (sıfırdan), en: New website (from scratch), ru: Новый сайт (с нуля)}
+      value: new
+      kw: [sıfırdan, yeni sayt, from scratch, new site, new website, brand new, с нуля, новый сайт, новый]
+    - label: {az: Mövcud saytın yenidən hazırlanması, en: Redesign of an existing website, ru: Редизайн существующего сайта}
+      value: redesign
+      kw: [redesign, yenidən, mövcud, köhnə sayt, existing, old site, revamp, rebuild, редизайн, переделк, существующ, старый сайт]
+  existing_site_url:
+    section: 1
+    label: {az: Mövcud saytın linki, en: Link to the existing website, ru: Ссылка на существующий сайт}
+    type: text
+    required: false
+    when: {field: existing_site, in: [redesign]}
+    question: {az: 'Mövcud saytın linkini yazın (məs. https://company.az).', en: 'Please write the link to your existing website (e.g. https://company.com).', ru: 'Напишите ссылку на существующий сайт (напр. https://company.com).'}
+    why: {az: 'Link bizə köhnə saytın məzmununa və strukturuna baxmağa imkan verir.', en: 'The link lets us look at the content and structure of the old site.', ru: 'Ссылка позволяет нам посмотреть контент и структуру старого сайта.'}
+  languages:
+    section: 2
+    label: {az: Sayt dilləri, en: Website languages, ru: Языки сайта}
+    type: languages
+    required: true
+    question: {az: 'Sayt hansı dillərdə olmalıdır? Əksər şirkətlər AZ + EN seçir.', en: 'Which languages should the site be in? Most companies choose AZ + EN.', ru: 'На каких языках должен быть сайт? Большинство компаний выбирают AZ + EN.'}
+    why: {az: 'Hər əlavə dil səhifələrin tərcüməsi və dil menyusu deməkdir, bu da vaxta və büdcəyə təsir edir.', en: 'Every extra language means translated pages and a language menu, which affects time and budget.', ru: 'Каждый дополнительный язык означает переводы страниц и меню языков, это влияет на сроки и бюджет.'}
+    options:
+    - label: AZ
+      value: [az]
+    - label: AZ + EN
+      value: [az, en]
+    - label: AZ + EN + RU
+      value: [az, en, ru]
+    allow_other: true
+  manage_mode:
+    section: 2
+    label: {az: Məzmunun idarə olunması, en: Content management, ru: Управление контентом}
+    type: choice
+    required: true
+    question: {az: 'Saytın məzmununu sonradan özünüz idarə edəcəksiniz, yoxsa developer?', en: 'Will you manage the site content yourself later, or will the developer?', ru: 'Вы будете сами управлять содержимым сайта или разработчик?'}
+    why: {az: 'Özünüz idarə edəcəksinizsə, saytda sadə admin panel hazırlanacaq.', en: 'If you manage the site yourself, we will build a simple admin panel for it.', ru: 'Если вы будете управлять сайтом сами, мы сделаем для него простую админ-панель.'}
+    options:
+    - label: {az: Özüm idarə edəcəm, en: I will manage it myself, ru: Буду управлять сам(а)}
+      value: self
+      kw: [özüm, özümüz, ozum, mən, myself, i will, сам, самост]
+    - label: {az: Developer idarə etsin, en: The developer manages it, ru: Пусть управляет разработчик}
+      value: dev
+      kw: [developer, siz, proqramçı, programmer, разработчик, вы, программист]
+  domain_hosting:
+    section: 5
+    label: {az: Domen və hostinq, en: Domain and hosting, ru: Домен и хостинг}
+    type: choice
+    required: false
+    question: {az: 'Domen (məs. company.az) və hostinqiniz artıq varmı?', en: 'Do you already have a domain (e.g. company.com) and hosting?', ru: 'Есть ли у вас уже домен (напр. company.com) и хостинг?'}
+    why: {az: 'Domen və hostinq texniki quraşdırmanı və yayımlanma planını müəyyən edir.', en: 'The domain and hosting define the technical setup and the launch plan.', ru: 'Домен и хостинг определяют техническую настройку и план запуска.'}
+    options:
+    - label: {az: Domen və hostinq var, en: I have both a domain and hosting, ru: Есть и домен и хостинг}
+      value: both
+      kw: [hər ikisi, her ikisi, domen və hostinq, both, domain and hosting, оба, и домен и хостинг]
+    - label: {az: Yalnız domen var, en: Domain only, ru: Есть только домен}
+      value: domain
+      kw: [yalnız domen, yalniz domen, only domain, domain only, только домен]
+    - label: {az: Yalnız hostinq var, en: Hosting only, ru: Есть только хостинг}
+      value: hosting
+      kw: [yalnız hostinq, yalniz hostinq, only hosting, hosting only, только хостинг]
+    - label: {az: Heç biri yoxdur, en: Neither, ru: Нет ни того ни другого}
+      value: none
+      kw: [yoxdur, heç biri, neither, none, no domain, нет, ничего]
+  domain_name:
+    section: 5
+    label: {az: Domen adı, en: Domain name, ru: Доменное имя}
+    type: text
+    required: false
+    when: {field: domain_hosting, in: [both, domain]}
+    question: {az: 'Domen adınız nədir? (məs. company.az)', en: 'What is your domain name? (e.g. company.com)', ru: 'Какое у вас доменное имя? (напр. company.com)'}
+    why: {az: 'Domen adı saytın ünvanıdır; onu texniki bölməyə dəqiq yazırıq.', en: 'The domain name is the address of your site; we write it exactly in the technical section.', ru: 'Доменное имя это адрес вашего сайта; мы точно впишем его в технический раздел.'}
+  seo_analytics:
+    section: 5
+    label: {az: SEO və analitika, en: SEO and analytics, ru: SEO и аналитика}
+    type: choice
+    required: false
+    question: {az: 'Ziyarətçi statistikası və axtarışda görünmə üçün hansı Google alətləri qoşulsun?', en: 'Which Google tools should be connected for visitor statistics and search visibility?', ru: 'Какие инструменты Google подключить для статистики посетителей и видимости в поиске?'}
+    why: {az: 'Bu alətlər sayta neçə nəfərin gəldiyini və axtarışda necə göründüyünü göstərir.', en: 'These tools show how many people visit the site and how it appears in search.', ru: 'Эти инструменты показывают, сколько людей посещают сайт и как он выглядит в поиске.'}
+    options:
+    - label: Google Analytics + Search Console
+      value: both
+      kw: [analytics və search, hər ikisi, her ikisi, both, оба, обе]
+    - label: {az: Yalnız Google Analytics, en: Google Analytics only, ru: Только Google Analytics}
+      value: ga
+      kw: [analytics, analitika, аналитик]
+    - label: {az: Yalnız Search Console, en: Search Console only, ru: Только Search Console}
+      value: gsc
+      kw: [search console, konsol, вебмастер]
+    - label: {az: Lazım deyil, en: Not needed, ru: Не нужно}
+      value: none
+      kw: [lazım deyil, lazim deyil, not needed, no need, none, не нужно, не нужен]
+    allow_other: true
+  devices:
+    section: 2
+    label: {az: Cihaz uyğunluğu, en: Device compatibility, ru: Совместимость с устройствами}
+    type: text
+    required: false
+    ask: false
+    default: {az: 'Mobil, planşet və masaüstü (responsiv dizayn)', en: 'Mobile, tablet and desktop (responsive design)', ru: 'Мобильные, планшеты и ПК (адаптивный дизайн)'}
+  design_style:
+    section: 4
+    label: {az: Dizayn üslubu, en: Design style, ru: Стиль дизайна}
+    type: choice
+    required: true
+    question: {az: 'Saytın görünüşü necə olsun?', en: 'What should the site look like?', ru: 'Как должен выглядеть сайт?'}
+    why: {az: 'Üslub dizayner üçün istiqamətdir: rənglər, şriftlər və ümumi görünüş buna əsasən seçilir.', en: 'The style is a direction for the designer: colors, fonts and the overall look follow from it.', ru: 'Стиль это ориентир для дизайнера: цвета, шрифты и общий вид выбираются по нему.'}
+    options:
+    - label: {az: Minimalist və korporativ, en: Minimalist and corporate, ru: Минималистичный и корпоративный}
+      value: minimal
+      kw: [minimalist, sadə, korporativ, təmiz, simple, clean, corporate, минимал, простой, строгий, корпоратив]
+    - label: {az: Müasir və canlı, en: Modern and lively, ru: Современный и яркий}
+      value: modern
+      kw: [müasir, canlı, rəngli, yaradıcı, modern, lively, colorful, creative, современ, яркий, креатив]
+    - label: {az: Lüks və premium, en: Luxury and premium, ru: Роскошный и премиальный}
+      value: premium
+      kw: [lüks, premium, elit, luxury, elite, люкс, премиум, элит, роскош]
+    allow_other: true
+  brand_assets:
+    section: 4
+    label: {az: Loqo və korporativ rənglər, en: Logo and brand colors, ru: Логотип и фирменные цвета}
+    type: choice
+    required: true
+    question: {az: 'Loqonuz və korporativ rənginiz varmı?', en: 'Do you have a logo and brand colors?', ru: 'Есть ли у вас логотип и фирменные цвета?'}
+    why: {az: 'Hazır loqo və rənglər varsa, dizayn onlara uyğun qurulur; yoxdursa, bunu ayrıca planlayırıq.', en: 'If you already have a logo and colors, the design is built around them; if not, we plan that separately.', ru: 'Если логотип и цвета уже есть, дизайн строится вокруг них; если нет, мы планируем это отдельно.'}
+    options:
+    - label: {az: Hər ikisi var, en: I have both, ru: Есть и то и другое}
+      value: both
+      kw: [hər ikisi, her ikisi, loqo və rəng, loqo ve reng, both, i have both, и то и другое, есть оба, оба]
+    - label: {az: Yalnız loqo var, en: Only a logo, ru: Есть только логотип}
+      value: logo
+      kw: [yalnız loqo, yalniz loqo, yalnız logo, only logo, only a logo, only the logo, только лого, только логотип]
+    - label: {az: Yalnız rəng var, en: Only brand colors, ru: Есть только цвета}
+      value: colors
+      kw: [yalnız rəng, yalniz reng, only colors, only colours, only brand colors, only color, только цвет]
+    - label: {az: Heç biri yoxdur, en: Neither, ru: Нет ни того ни другого}
+      value: none
+      kw: [yoxdur, heç biri, hazırlanmalı, neither, none, no logo, нет, ничего, отсутствует]
+    allow_other: true
+  brand_logo:
+    section: 4
+    label: {az: Loqo faylı, en: Logo file, ru: Файл логотипа}
+    type: file
+    required: false
+    when: {field: brand_assets, in: [both, logo]}
+    question: {az: 'Zəhmət olmasa loqonuzu yükləyin: aşağıdakı «Loqo yüklə» düyməsini (və ya 📎) basın. Bir neçə variant seçə bilərsiniz (məs. açıq və tünd fon). PNG və ya JPG, hər biri maksimum 2 MB. Brend bələdçiniz (PDF) varsa, onu da yükləyə bilərsiniz.', en: 'Please upload your logo: press the "Upload logo" button below (or 📎). You can pick several variants (e.g. for light and dark backgrounds). PNG or JPG, up to 2 MB each. If you have a brand guide (PDF), you can upload it too.', ru: 'Пожалуйста, загрузите логотип: нажмите кнопку «Загрузить логотип» ниже (или 📎). Можно выбрать несколько вариантов (например, для светлого и тёмного фона). PNG или JPG, до 2 МБ каждый. Если есть брендбук (PDF), его тоже можно загрузить.'}
+    why: {az: 'Loqo saytın başlığında, sənəddə və digər yerlərdə istifadə olunacaq.', en: 'The logo will be used in the site header, the document and other places.', ru: 'Логотип будет использоваться в шапке сайта, в документе и в других местах.'}
+    skip_chip_label: {az: Loqonu sonra göndərəcəm, en: I will send the logo later, ru: Логотип отправлю позже}
+  brand_colors:
+    section: 4
+    label: {az: Korporativ rənglər, en: Brand colors, ru: Фирменные цвета}
+    type: text
+    required: false
+    when: {field: brand_assets, in: [both, colors]}
+    question: {az: 'Korporativ rənglərinizi seçin (rəng seçici ilə) və ya yazın: HEX kodu (məs. #0A3D91) ya da söz ilə (məs. tünd mavi və narıncı).', en: 'Pick your brand colors (with the color picker) or write them: a HEX code (e.g. #0A3D91) or in words (e.g. dark blue and orange).', ru: 'Выберите фирменные цвета (палитрой) или напишите: HEX-код (напр. #0A3D91) или словами (напр. тёмно-синий и оранжевый).'}
+    why: {az: 'Rənglər saytın bütün səhifələrində eyni üslubu saxlamaq üçün lazımdır.', en: 'The colors keep the same style on all pages of the site.', ru: 'Цвета нужны, чтобы на всех страницах сайта сохранялся единый стиль.'}
+    skip_chip_label: {az: Rəngləri sonra dəqiqləşdirəcəm, en: I will confirm the colors later, ru: Цвета уточню позже}
+  reference_sites:
+    section: 4
+    label: {az: Nümunə (bəyəndiyiniz) saytlar, en: Example sites you like, ru: Примеры понравившихся сайтов}
+    type: text
+    required: false
+    question: {az: 'Bəyəndiyiniz nümunə sayt varsa, linkini yazın.', en: 'If you have an example site you like, write its link.', ru: 'Если есть понравившийся сайт-пример, напишите ссылку.'}
+    why: {az: 'Bəyəndiyiniz sayt sözlə izah etməkdən daha dəqiq göstərir ki, nə istəyirsiniz.', en: 'A site you like shows what you want more precisely than any description.', ru: 'Понравившийся сайт показывает, что вы хотите, точнее любого описания.'}
+    default: {az: Qeyd olunmayıb, en: Not specified, ru: Не указано}
+    default_chip_label: {az: Nümunə yoxdur, en: No examples, ru: Примеров нет}
+  reference_screenshots:
+    section: 4
+    label: {az: Dizayn nümunələri (skrinşotlar), en: Design references (screenshots), ru: Примеры дизайна (скриншоты)}
+    type: file
+    required: false
+    question: {az: 'Bəyəndiyiniz dizaynın skrinşotlarını yükləyin (aşağıdakı «Skrinşot yüklə» düyməsi və ya 📎). Bir neçə şəkil seçə bilərsiniz: PNG və ya JPG, hər biri maksimum 2 MB.', en: 'Upload screenshots of designs you like (the "Upload screenshots" button below or 📎). You can pick several images: PNG or JPG, up to 2 MB each.', ru: 'Загрузите скриншоты понравившегося дизайна (кнопка «Загрузить скриншоты» ниже или 📎). Можно выбрать несколько изображений: PNG или JPG, до 2 МБ каждое.'}
+    why: {az: 'Şəkil sözlə izah etməkdən daha dəqiq göstərir ki, dizayner hansı istiqamətdə getməlidir.', en: 'A picture shows the designer the right direction more precisely than words.', ru: 'Картинка показывает дизайнеру нужное направление точнее слов.'}
+    default: {az: Yoxdur, en: None, ru: Нет}
+    default_chip_label: {az: Skrinşotum yoxdur, en: I have no screenshots, ru: Скриншотов нет}
+  competitors:
+    section: 4
+    label: {az: Rəqib saytlar, en: Competitor websites, ru: Сайты конкурентов}
+    type: text
+    required: false
+    question: {az: 'Rəqib saytlarınız varsa, adlarını və ya linklərini yazın. Bu, saytınızı onlardan fərqləndirməyə kömək edir.', en: 'If you have competitors, write their names or links. This helps us make your site stand out from them.', ru: 'Если есть конкуренты, напишите их названия или ссылки. Это поможет выделить ваш сайт на их фоне.'}
+    why: {az: 'Rəqiblərə baxmaq saytınızı onlardan fərqləndirməyə kömək edir.', en: 'Looking at competitors helps us make your site stand out from them.', ru: 'Изучение конкурентов помогает выделить ваш сайт на их фоне.'}
+    default: {az: Qeyd olunmayıb, en: Not specified, ru: Не указано}
+    default_chip_label: {az: Rəqib göstərmirəm, en: No competitors to share, ru: Конкурентов не указываю}
+  contact_details:
+    section: 6
+    label: {az: Saytda göstəriləcək əlaqə məlumatları, en: Contact details shown on the site, ru: Контактные данные на сайте}
+    type: text
+    required: false
+    question: {az: 'Saytda göstəriləcək əlaqə məlumatlarını yazın: telefon, ünvan və iş saatları.', en: 'Write the contact details to show on the site: phone, address and working hours.', ru: 'Напишите контактные данные для сайта: телефон, адрес и часы работы.'}
+    why: {az: 'Bu məlumatlar «Əlaqə» səhifəsinə və saytın alt hissəsinə yazılacaq.', en: 'This information goes on the Contact page and in the site footer.', ru: 'Эти данные попадут на страницу «Контакты» и в нижнюю часть сайта.'}
+  social_links:
+    section: 6
+    label: {az: Sosial şəbəkə linkləri, en: Social media links, ru: Ссылки на соцсети}
+    type: text
+    required: false
+    when: {module: social_links}
+    question: {az: 'Hansı sosial şəbəkə səhifələrinin linkləri göstərilsin? (Instagram, Facebook, LinkedIn, Telegram və s.)', en: 'Which social media pages should be linked? (Instagram, Facebook, LinkedIn, Telegram, etc.)', ru: 'Ссылки на какие соцсети показывать? (Instagram, Facebook, LinkedIn, Telegram и т. д.)'}
+    why: {az: 'Linklər saytdakı sosial şəbəkə ikonlarına bağlanacaq.', en: 'The links will be attached to the social media icons on the site.', ru: 'Ссылки будут привязаны к иконкам соцсетей на сайте.'}
+    default: {az: Yoxdur, en: None, ru: Нет}
+    default_chip_label: {az: Sosial şəbəkəm yoxdur, en: I have no social media pages, ru: Соцсетей нет}
+  map_location:
+    section: 6
+    label: {az: Xəritədə göstəriləcək ünvan, en: Address shown on the map, ru: Адрес на карте}
+    type: text
+    required: false
+    when: {module: map}
+    question: {az: 'Xəritədə hansı ünvan göstərilsin? Ünvanı yazın və ya Google Maps linkini göndərin.', en: 'Which address should the map show? Write the address or send a Google Maps link.', ru: 'Какой адрес показать на карте? Напишите адрес или отправьте ссылку на Google Maps.'}
+    why: {az: 'Ünvan xəritədə düzgün nöqtəni göstərmək üçün lazımdır.', en: 'The address is needed to show the right point on the map.', ru: 'Адрес нужен, чтобы показать на карте правильную точку.'}
+  contact_email:
+    section: 6
+    label: {az: Müraciətlərin gəldiyi e-poçt, en: E-mail for inquiries, ru: E-mail для обращений}
+    type: email
+    required: true
+    when: {module: contact_form}
+    question: {az: 'Əlaqə formasından gələn mesajlar hansı e-poçt ünvanına göndərilsin?', en: 'Which e-mail address should messages from the contact form be sent to?', ru: 'На какой e-mail отправлять сообщения из формы обратной связи?'}
+    why: {az: 'Əlaqə formasından gələn müraciətlər bu ünvana göndəriləcək.', en: 'Messages from the contact form will be sent to this address.', ru: 'Обращения из формы связи будут приходить на этот адрес.'}
+  payment_provider:
+    section: 6
+    label: {az: Ödəniş üsulu, en: Payment method, ru: Способ оплаты}
+    type: choice
+    required: true
+    when: {module: payment}
+    question: {az: 'Onlayn ödənişi hansı üsulla qəbul etmək istəyirsiniz?', en: 'How do you want to accept online payments?', ru: 'Каким способом вы хотите принимать онлайн-оплату?'}
+    why: {az: 'Ödəniş üsulu texniki inteqrasiyanı və bank ilə razılaşmanı müəyyən edir.', en: 'The payment method decides the technical integration and the agreement with the bank.', ru: 'Способ оплаты определяет техническую интеграцию и договор с банком.'}
+    options:
+    - label: {az: Yerli bank kartları, en: Local bank cards, ru: Местные банковские карты}
+      value: local
+      kw: [yerli, bank, kapital, pasha, azərbaycan, local, местн, банк]
+    - label: {az: 'Beynəlxalq sistem (Stripe, PayPal)', en: 'International system (Stripe, PayPal)', ru: 'Международная система (Stripe, PayPal)'}
+      value: intl
+      kw: [beynəlxalq, stripe, paypal, xarici, international, foreign, междунар, зарубеж, иностран]
+    - label: {az: Hər ikisi, en: Both, ru: И те и другие}
+      value: both
+      kw: [hər ikisi, her ikisi, both, оба, обе]
+    allow_other: true
+  account_details:
+    section: 6
+    label: {az: İstifadəçi hesabı tələbləri, en: User account requirements, ru: Требования к аккаунту пользователя}
+    type: choice
+    required: true
+    when: {module: user_account}
+    question: {az: 'İstifadəçilər sayta necə daxil olsun?', en: 'How should users log in to the site?', ru: 'Как пользователи должны входить на сайт?'}
+    why: {az: 'Giriş üsulu qeydiyyat formasını və təhlükəsizlik tələblərini müəyyən edir.', en: 'The login method decides the sign-up form and the security requirements.', ru: 'Способ входа определяет форму регистрации и требования безопасности.'}
+    options:
+    - label: {az: E-poçt və parol ilə, en: With e-mail and password, ru: По e-mail и паролю}
+      value: email
+      kw: [poçt, parol, email, e-mail, password, почта, пароль]
+    - label: {az: Google ilə giriş də olsun, en: Also allow Google sign-in, ru: Добавить вход через Google}
+      value: google
+      kw: [google, qugl, sosial, social, гугл, соцсет]
+    allow_other: true
+  cv_details:
+    section: 6
+    label: {az: CV formu detalları, en: CV form details, ru: Детали формы для резюме}
+    type: text
+    required: true
+    when: {module: career}
+    question: {az: 'Karyera bölməsindəki CV formu üçün: hansı fayl tipləri (PDF/DOCX), maksimum ölçü və bildiriş e-poçtu?', en: 'For the CV form in the careers section: which file types (PDF/DOCX), maximum size and notification e-mail?', ru: 'Для формы резюме в разделе карьеры: какие типы файлов (PDF/DOCX), максимальный размер и e-mail для уведомлений?'}
+    why: {az: 'Bu, CV formunun düzgün qurulması və fayl təhlükəsizliyi üçün lazımdır.', en: 'This is needed to build the CV form correctly and keep uploaded files safe.', ru: 'Это нужно, чтобы правильно построить форму резюме и обеспечить безопасность файлов.'}
+  deadline:
+    section: 8
+    label: {az: İstənilən çatdırılma müddəti, en: Desired delivery time, ru: Желаемый срок сдачи}
+    type: choice
+    required: true
+    question: {az: 'Saytın nə vaxta hazır olması lazımdır?', en: 'By when does the site need to be ready?', ru: 'К какому сроку сайт должен быть готов?'}
+    why: {az: 'Müddət işlərin planlaşdırılması və komandanın yüklənməsi üçün vacibdir.', en: 'The deadline matters for planning the work and the team''s workload.', ru: 'Срок важен для планирования работ и загрузки команды.'}
+    options:
+    - label: {az: 1 ay ərzində, en: Within 1 month, ru: В течение 1 месяца}
+      value: 1
+      kw: [1 ay, bir ay, təcili, 1 month, one month, urgent, asap, 1 месяц, 1 месяца, месяц, срочно]
+    - label: {az: 2-3 ay ərzində, en: Within 2-3 months, ru: В течение 2-3 месяцев}
+      value: 3
+      kw: [2 ay, 3 ay, iki ay, üç ay, 2 months, 3 months, two months, three months, 2 месяца, 3 месяца, 2-3]
+    - label: {az: Vaxt məhdudiyyəti yoxdur, en: No time limit, ru: Без ограничения по времени}
+      value: null
+      kw: [məhdudiyyət yoxdur, fərqi yoxdur, tələsmirəm, no limit, no rush, not in a hurry, no deadline, не ограничен, не спешу, без ограничен]
+    allow_other: true
+  approver:
+    section: 8
+    label: {az: Müştəri tərəfdən təsdiq edən şəxs, en: Approver on the client side, ru: Утверждающий со стороны клиента}
+    type: text
+    required: false
+    question: {az: 'Müştəri tərəfdən işləri kim təsdiq edəcək? Adını və vəzifəsini yazın.', en: 'Who will approve the work on your side? Write their name and role.', ru: 'Кто будет утверждать работу с вашей стороны? Напишите имя и должность.'}
+    why: {az: 'Bir nəfərin təsdiqi işi sürətləndirir və ziddiyyətli qeydlərin qarşısını alır.', en: 'One person approving the work speeds things up and avoids conflicting feedback.', ru: 'Утверждение одним человеком ускоряет работу и избавляет от противоречивых замечаний.'}
+  revision_rounds:
+    section: 8
+    label: {az: Düzəliş raundlarının sayı, en: Number of revision rounds, ru: Количество раундов правок}
+    type: choice
+    required: false
+    question: {az: 'Dizayn və demo üzrə neçə düzəliş raundu gözləyirsiniz? (Raund: bütün qeydlərinizi bir dəfəyə toplu göndərməyinizdir.)', en: 'How many rounds of revisions do you expect for the design and demo? (A round is when you send all your comments at once.)', ru: 'Сколько раундов правок вы ожидаете по дизайну и демо? (Раунд: вы один раз отправляете все замечания сразу.)'}
+    why: {az: 'Raundların sayı vaxt və büdcə planına daxil edilir; artıq raundlar ayrıca qiymətləndirilir.', en: 'The number of rounds is built into the time and budget plan; extra rounds are estimated separately.', ru: 'Количество раундов закладывается в план сроков и бюджета; лишние раунды оцениваются отдельно.'}
+    options:
+    - label: {az: 1 raund, en: 1 round, ru: 1 раунд}
+      value: 1
+      kw: ['1', bir, one, один]
+    - label: {az: 2 raund, en: 2 rounds, ru: 2 раунда}
+      value: 2
+      kw: ['2', iki, two, два]
+    - label: {az: 3 raund, en: 3 rounds, ru: 3 раунда}
+      value: 3
+      kw: ['3', üç, three, три]
+    allow_other: true
+  materials:
+    section: 9
+    label: {az: 'Şəkil, mətn və digər materiallar', en: 'Images, text and other materials', ru: 'Изображения, тексты и другие материалы'}
+    type: choice
+    required: true
+    question: {az: 'Şəkil, mətn və digər materialları kim hazırlayacaq?', en: 'Who will prepare the images, text and other materials?', ru: 'Кто подготовит изображения, тексты и другие материалы?'}
+    why: {az: 'Mətn və şəkillərin kim tərəfindən hazırlanması işin həcmini və qrafikini dəyişir.', en: 'Who prepares the texts and images changes the amount of work and the schedule.', ru: 'От того, кто готовит тексты и изображения, зависят объём работ и график.'}
+    options:
+    - label: {az: Özüm təqdim edəcəm, en: I will provide them, ru: Я предоставлю сам(а)}
+      value: client
+      kw: [özüm, ozum, özümüz, myself, i will, i provide, сам, предостав]
+    - label: {az: Developer tərəfindən hazırlansın, en: The developer should prepare them, ru: Пусть подготовит разработчик}
+      value: dev
+      kw: [developer, siz hazırlayın, hazırlansın, you prepare, разработчик, подготов]
+    - label: {az: 'Qismən özüm, qismən developer', en: 'Partly me, partly the developer', ru: 'Частично я, частично разработчик'}
+      value: mixed
+      kw: [qismən, bir hissəsi, partly, partially, part, частично, отчасти]
+    allow_other: true
+  budget_range:
+    section: 10
+    label: {az: Büdcə aralığı, en: Budget range, ru: Диапазон бюджета}
+    type: choice
+    required: true
+    question: {az: 'Layihə üçün təxmini büdcəniz nə qədərdir?', en: 'What is your approximate budget for the project?', ru: 'Каков ваш примерный бюджет на проект?'}
+    why: {az: 'Büdcə bizə uyğun həlli təklif etməyə və lazım gələrsə həcmi tənzimləməyə kömək edir.', en: 'The budget helps us propose a suitable solution and adjust the scope if needed.', ru: 'Бюджет помогает предложить подходящее решение и при необходимости скорректировать объём.'}
+    options:
+    - label: {az: 1000 AZN-ə qədər, en: Up to 1000 AZN, ru: До 1000 AZN}
+      value: 1000
+      kw: ['1000']
+    - label: 1000-3000 AZN
+      value: 3000
+      kw: ['3000']
+    - label: 3000-8000 AZN
+      value: 8000
+      kw: ['8000']
+    - label: {az: 8000 AZN-dən çox, en: More than 8000 AZN, ru: Более 8000 AZN}
+      value: null
+      kw: [çox, more, over, более, больше]
+    allow_other: true

@@ -1,0 +1,157 @@
+# Başlanğıc şablonlar: sayt növünə görə təklif olunan səhifə strukturu.
+# Modul id-ləri modules.yaml-dan götürülür. Mətnlər {az, en, ru} formasındadır.
+
+corporate:
+  title: {az: Korporativ sayt, en: Corporate website, ru: Корпоративный сайт}
+  pages:
+  - name: {az: Ana səhifə, en: Home page, ru: Главная страница}
+    purpose: {az: Şirkətin qısa təqdimatı və əsas xidmətlər, en: A short introduction of the company and main services, ru: Краткое представление компании и основные услуги}
+    modules: [banner, about_block, services_list, testimonials]
+  - name: {az: Haqqımızda, en: About us, ru: О нас}
+    purpose: {az: 'Şirkət, missiya və komanda haqqında', en: 'About the company, mission and team', ru: 'О компании, миссии и команде'}
+    modules: [team]
+  - name: {az: Xidmətlər, en: Services, ru: Услуги}
+    purpose: {az: Xidmətlərin ətraflı təsviri, en: Detailed description of the services, ru: Подробное описание услуг}
+    modules: [faq]
+  - name: {az: Əlaqə, en: Contact, ru: Контакты}
+    purpose: {az: Əlaqə məlumatları və müraciət forması, en: Contact details and inquiry form, ru: Контактные данные и форма обращения}
+    modules: [contact_form, map, social_links]
+  global: []
+  suggest: [blog, career]
+ecommerce:
+  title: {az: Onlayn mağaza, en: Online store, ru: Интернет-магазин}
+  pages:
+  - name: {az: Ana səhifə, en: Home page, ru: Главная страница}
+    purpose: {az: Kampaniyalar və seçilmiş məhsullar, en: Campaigns and featured products, ru: Акции и избранные товары}
+    modules: [banner, testimonials]
+  - name: {az: Məhsul kataloqu, en: Product catalog, ru: Каталог товаров}
+    purpose: {az: Kateqoriya və filtr ilə məhsul siyahısı, en: Product list with categories and filters, ru: Список товаров с категориями и фильтрами}
+    modules: [product_catalog]
+  - name: {az: Məhsul səhifəsi, en: Product page, ru: Страница товара}
+    purpose: {az: Tək məhsulun ətraflı təsviri, en: Detailed description of a single product, ru: Подробное описание отдельного товара}
+    modules: [product_detail]
+  - name: {az: Səbət və ödəniş, en: Cart and payment, ru: Корзина и оплата}
+    purpose: {az: Sifarişin rəsmiləşdirilməsi, en: Placing the order, ru: Оформление заказа}
+    modules: [cart, payment]
+  - name: {az: Hesabım, en: My account, ru: Мой аккаунт}
+    purpose: {az: Müştəri kabineti və sifariş tarixçəsi, en: Customer account and order history, ru: Личный кабинет клиента и история заказов}
+    modules: [user_account]
+  - name: {az: Əlaqə, en: Contact, ru: Контакты}
+    purpose: {az: Əlaqə məlumatları və müraciət forması, en: Contact details and inquiry form, ru: Контактные данные и форма обращения}
+    modules: [contact_form, map]
+  global: [search]
+  suggest: [blog, newsletter]
+portfolio:
+  title: {az: Portfolio sayt, en: Portfolio website, ru: Сайт-портфолио}
+  pages:
+  - name: {az: Ana səhifə, en: Home page, ru: Главная страница}
+    purpose: {az: Qısa təqdimat və seçilmiş işlər, en: A short introduction and selected works, ru: Краткое представление и избранные работы}
+    modules: [banner, about_block]
+  - name: {az: İşlər, en: Works, ru: Работы}
+    purpose: {az: Görülmüş işlərin nümayişi, en: Showcase of completed works, ru: Демонстрация выполненных работ}
+    modules: [portfolio_grid, gallery]
+  - name: {az: Case study, en: Case study, ru: Кейс}
+    purpose: {az: Layihələrin ətraflı təsviri, en: Detailed description of projects, ru: Подробное описание проектов}
+    modules: [case_study]
+  - name: {az: Əlaqə, en: Contact, ru: Контакты}
+    purpose: {az: Əməkdaşlıq üçün əlaqə, en: Contact for collaboration, ru: Контакты для сотрудничества}
+    modules: [contact_form, social_links]
+  global: []
+  suggest: [blog, testimonials]
+landing:
+  title: {az: Landing page (tək səhifəli sayt), en: Landing page (single-page site), ru: Лендинг (одностраничный сайт)}
+  pages:
+  - name: {az: Landing səhifə, en: Landing page, ru: Лендинг}
+    purpose: {az: 'Tək səhifədə təklif, üstünlüklər və müraciət', en: 'Offer, advantages and inquiry on a single page', ru: 'Предложение, преимущества и обращение на одной странице'}
+    modules: [banner, services_list, pricing_table, testimonials, faq, contact_form]
+  global: []
+  suggest: [newsletter, live_chat]
+news:
+  title: {az: Xəbər saytı, en: News website, ru: Новостной сайт}
+  pages:
+  - name: {az: Ana səhifə, en: Home page, ru: Главная страница}
+    purpose: {az: Son xəbərlər və seçilmiş mövzular, en: Latest news and featured topics, ru: Последние новости и избранные темы}
+    modules: [banner, blog]
+  - name: {az: Xəbərlər, en: News, ru: Новости}
+    purpose: {az: Kateqoriya və tarix üzrə xəbər siyahısı, en: News list by category and date, ru: Список новостей по категориям и дате}
+    modules: [blog]
+  - name: {az: Haqqımızda, en: About us, ru: О нас}
+    purpose: {az: Redaksiya və media haqqında, en: About the editorial team and the media, ru: О редакции и СМИ}
+    modules: [about_block, team]
+  - name: {az: Əlaqə, en: Contact, ru: Контакты}
+    purpose: {az: Əlaqə məlumatları və müraciət, en: Contact details and inquiries, ru: Контактные данные и обращения}
+    modules: [contact_form, social_links]
+  global: [search]
+  suggest: [newsletter, live_chat]
+school:
+  title: {az: Məktəb / təhsil saytı, en: School / education website, ru: Сайт школы / образования}
+  pages:
+  - name: {az: Ana səhifə, en: Home page, ru: Главная страница}
+    purpose: {az: Məktəbin təqdimatı və elanlar, en: Introduction of the school and announcements, ru: Представление школы и объявления}
+    modules: [banner, about_block]
+  - name: {az: Haqqımızda, en: About us, ru: О нас}
+    purpose: {az: 'Tarixçə, missiya və rəhbərlik', en: 'History, mission and leadership', ru: 'История, миссия и руководство'}
+    modules: [team]
+  - name: {az: Proqramlar, en: Programs, ru: Программы}
+    purpose: {az: Kurs və təhsil proqramları, en: Courses and education programs, ru: Курсы и образовательные программы}
+    modules: [courses]
+  - name: {az: Cədvəl, en: Timetable, ru: Расписание}
+    purpose: {az: Dərs cədvəli, en: Class timetable, ru: Расписание занятий}
+    modules: [timetable]
+  - name: {az: Tədbirlər, en: Events, ru: События}
+    purpose: {az: Tədbir və elanlar, en: Events and announcements, ru: События и объявления}
+    modules: [events]
+  - name: {az: Sənədlər, en: Documents, ru: Документы}
+    purpose: {az: Yüklənə bilən rəsmi sənədlər, en: Downloadable official documents, ru: Скачиваемые официальные документы}
+    modules: [documents]
+  - name: {az: Qəbul, en: Admissions, ru: Поступление}
+    purpose: {az: Qəbul qaydaları və müraciət formu, en: Admission rules and application form, ru: Правила поступления и форма заявки}
+    modules: [admissions, faq]
+  - name: {az: Əlaqə, en: Contact, ru: Контакты}
+    purpose: {az: Ünvan və əlaqə formu, en: Address and contact form, ru: Адрес и форма связи}
+    modules: [contact_form, map]
+  global: [search]
+  suggest: [gallery, newsletter]
+directory:
+  title: {az: Kataloq / directory, en: Directory / listings, ru: Каталог / справочник}
+  pages:
+  - name: {az: Ana səhifə, en: Home page, ru: Главная страница}
+    purpose: {az: Axtarış və seçilmiş qurumlar, en: Search and featured listings, ru: Поиск и избранные организации}
+    modules: [banner]
+  - name: {az: Kataloq, en: Directory, ru: Каталог}
+    purpose: {az: Kateqoriya və filtr ilə siyahı, en: List with categories and filters, ru: Список с категориями и фильтрами}
+    modules: [listings]
+  - name: {az: Qurum səhifəsi, en: Listing page, ru: Страница организации}
+    purpose: {az: Tək qurumun ətraflı məlumatı, en: Details of a single listing, ru: Подробности одной организации}
+    modules: [listing_detail]
+  - name: {az: Əlaqə, en: Contact, ru: Контакты}
+    purpose: {az: Əlaqə məlumatları, en: Contact details, ru: Контактные данные}
+    modules: [contact_form]
+  global: [search]
+  suggest: [map, user_account]
+booking:
+  title: {az: Xidmət / rezervasiya saytı, en: Service / booking website, ru: Сайт услуг / бронирования}
+  pages:
+  - name: {az: Ana səhifə, en: Home page, ru: Главная страница}
+    purpose: {az: Xidmətlərin təqdimatı, en: Presentation of the services, ru: Представление услуг}
+    modules: [banner, about_block]
+  - name: {az: Xidmətlər, en: Services, ru: Услуги}
+    purpose: {az: Xidmət və qiymətlər, en: Services and prices, ru: Услуги и цены}
+    modules: [services_list, pricing_table]
+  - name: {az: Rezervasiya, en: Booking, ru: Бронирование}
+    purpose: {az: Onlayn tarix/saat seçimi, en: Online date/time selection, ru: Онлайн-выбор даты и времени}
+    modules: [booking]
+  - name: {az: Əlaqə, en: Contact, ru: Контакты}
+    purpose: {az: Əlaqə məlumatları, en: Contact details, ru: Контактные данные}
+    modules: [contact_form, map]
+  global: []
+  suggest: [gallery, testimonials]
+other:
+  title: {az: Qeyri-standart sayt, en: Non-standard website, ru: Нестандартный сайт}
+  pages:
+  - name: {az: Ana səhifə, en: Home page, ru: Главная страница}
+    purpose: {az: Əsas səhifə, en: Main page, ru: Главная страница}
+    modules: [banner]
+  global: []
+  suggest: []
+  custom_item: {az: Qeyri-standart sayt növü, en: Non-standard site type, ru: Нестандартный тип сайта}

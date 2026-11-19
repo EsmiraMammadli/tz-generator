@@ -1,0 +1,260 @@
+# Modul kataloqu. Kodsuz redaktə olunur: saat normaları, effektlər, açar sözlər.
+# Mətnlər {az, en, ru} formasındadır. Yeni modul əlavə edəndə üç dili də yazın (en/ru boş qalsa AZ göstərilir).
+# Saat normaları və tarif: öz agentliyinizin rəqəmləri ilə yoxlayın (saat, əlavə dil, quraşdırma).
+# Aşağıdakı rəqəmlər Azərbaycan bazarı üçün başlanğıc orientirdir, nümunə deyil.
+
+pricing:
+  hourly_rate_azn: 40
+  range_pct: 0.2
+  hours_per_week: 40
+  extra_language_hours_per_page: 1.5
+  fixed:
+  - id: setup
+    label: {az: Quraşdırma və yerləşdirmə, en: Setup and deployment, ru: Настройка и развёртывание}
+    hours: 14
+  overhead:
+  - id: design
+    label: {az: UI/UX dizayn və prototip, en: UI/UX design and prototype, ru: UI/UX-дизайн и прототип}
+    pct: 0.25
+  - id: qa
+    label: {az: Test və səhvlərin düzəldilməsi, en: Testing and bug fixing, ru: Тестирование и исправление ошибок}
+    pct: 0.15
+  - id: pm
+    label: {az: Layihə idarəetməsi, en: Project management, ru: Управление проектом}
+    pct: 0.1
+  payment_plan:
+  - label: {az: Avans (layihə başlayanda), en: Advance (at project start), ru: Аванс (при старте проекта)}
+    pct: 30
+  - label: {az: İlk demo təsdiqləndikdə, en: When the first demo is approved, ru: После утверждения первого демо}
+    pct: 40
+  - label: {az: Yekun təhvil, en: Final delivery, ru: Итоговая сдача}
+    pct: 30
+heavy_modules: [payment, user_account, booking, cart]
+# SEO/analitika sualına (seo_analytics) cavabdan asılı tələblər. 'default' yalnız sual hələ verilməyibsə göstərilir;
+# müştəri 'Lazım deyil' deyibsə və ya cavabı açıq sual olaraq qalıbsa analitika tələbi TZ-yə yazılmır.
+analytics_requirements:
+  default:
+  - {az: 'Analitika: Google Analytics, Yandex Metrica', en: 'Analytics: Google Analytics, Yandex Metrica', ru: 'Аналитика: Google Analytics, Яндекс Метрика'}
+  both:
+  - {az: 'Google Analytics qoşulması (ziyarətçi statistikası)', en: 'Google Analytics integration (visitor statistics)', ru: 'Подключение Google Analytics (статистика посетителей)'}
+  - {az: 'Google Search Console qoşulması və sitemap.xml-in göndərilməsi', en: 'Google Search Console setup and sitemap.xml submission', ru: 'Подключение Google Search Console и отправка sitemap.xml'}
+  ga:
+  - {az: 'Google Analytics qoşulması (ziyarətçi statistikası)', en: 'Google Analytics integration (visitor statistics)', ru: 'Подключение Google Analytics (статистика посетителей)'}
+  gsc:
+  - {az: 'Google Search Console qoşulması və sitemap.xml-in göndərilməsi', en: 'Google Search Console setup and sitemap.xml submission', ru: 'Подключение Google Search Console и отправка sitemap.xml'}
+  none: []
+base_requirements:
+  tech:
+  - {az: SSL/HTTPS sertifikatı (məcburi), en: SSL/HTTPS certificate (mandatory), ru: SSL/HTTPS-сертификат (обязательно)}
+  - {az: 'Verilənlər bazası: MariaDB/MySQL', en: 'Database: MariaDB/MySQL', ru: 'База данных: MariaDB/MySQL'}
+  - {az: 'SEO: meta teqlər, açar sözlər, SEO dostu URL, sitemap.xml', en: 'SEO: meta tags, keywords, SEO-friendly URLs, sitemap.xml', ru: 'SEO: мета-теги, ключевые слова, SEO-friendly URL, sitemap.xml'}
+  - {az: 'Hostinq: developer tövsiyəsinə uyğun (RAM və yaddaş layihə həcminə görə müəyyənləşir)', en: 'Hosting: as recommended by the developer (RAM and storage depend on project size)', ru: 'Хостинг: по рекомендации разработчика (ОЗУ и объём хранилища зависят от размера проекта)'}
+  functional:
+  - {az: Saytın məzmununun admin panel (CMS) vasitəsilə idarə olunması, en: Site content managed through an admin panel (CMS), ru: Управление контентом сайта через админ-панель (CMS)}
+  - {az: Səhifənin yüklənmə sürəti ≤ 3 saniyə, en: Page load time ≤ 3 seconds, ru: Скорость загрузки страницы ≤ 3 секунд}
+  security:
+  - {az: SQL injection və XSS hücumlarından qorunma, en: Protection against SQL injection and XSS attacks, ru: Защита от SQL-инъекций и XSS-атак}
+  - {az: İstifadəçi məlumatlarının şifrələnmiş saxlanması, en: Encrypted storage of user data, ru: Хранение пользовательских данных в зашифрованном виде}
+  - {az: Gündəlik avtomatik ehtiyat nüsxə (backup), en: Daily automatic backup, ru: Ежедневное автоматическое резервное копирование}
+modules:
+- id: banner
+  title: {az: Dinamik banner / slayder, en: Dynamic banner / slider, ru: Динамический баннер / слайдер}
+  desc: {az: Ana səhifədə idarə oluna bilən şəkil və mətn bannerləri, en: Manageable image and text banners on the home page, ru: Управляемые баннеры с изображением и текстом на главной странице}
+  hours: 6
+  kw: [banner, slayder, slider, баннер, слайдер, слайд]
+- id: about_block
+  title: {az: Şirkət haqqında bloku, en: About-the-company block, ru: Блок «О компании»}
+  desc: {az: 'Tarixçə, missiya, vizyon və dəyərlər', en: 'History, mission, vision and values', ru: 'История, миссия, видение и ценности'}
+  hours: 4
+  kw: [haqqımızda, haqqinda, şirkət haqqında, missiya, about us, about, mission, о нас, о компании, миссия]
+- id: team
+  title: {az: Komanda bölməsi, en: Team section, ru: Раздел «Команда»}
+  desc: {az: İşçilərin foto və vəzifə məlumatları, en: Photos and job titles of employees, ru: Фото и должности сотрудников}
+  hours: 5
+  kw: [komanda, işçilər, team, staff, employees, команда, сотрудники]
+- id: services_list
+  title: {az: Xidmətlər siyahısı, en: Services list, ru: Список услуг}
+  desc: {az: Kateqoriyalar və ayrıca xidmət səhifələri, en: Categories and separate service pages, ru: Категории и отдельные страницы услуг}
+  hours: 10
+  kw: [xidmət, xidmətlər, service, services, услуг]
+- id: testimonials
+  title: {az: Müştəri rəyləri, en: Customer reviews, ru: Отзывы клиентов}
+  desc: {az: Müştərilərin rəy və tövsiyələri, en: Customer reviews and recommendations, ru: Отзывы и рекомендации клиентов}
+  hours: 5
+  kw: [rəy, rəylər, tövsiyə, testimonial, review, reviews, testimonials, отзыв]
+- id: product_catalog
+  title: {az: Məhsul kataloqu, en: Product catalog, ru: Каталог товаров}
+  desc: {az: 'Kateqoriyalar, filtr və məhsul siyahısı', en: 'Categories, filters and product list', ru: 'Категории, фильтры и список товаров'}
+  hours: 18
+  kw: [kataloq, məhsul, məhsullar, mağaza, catalog, catalogue, products, product, shop, каталог, товар, магазин]
+- id: product_detail
+  title: {az: Məhsul səhifəsi, en: Product page, ru: Страница товара}
+  desc: {az: 'Şəkillər, təsvir, qiymət, xüsusiyyətlər', en: 'Images, description, price, features', ru: 'Изображения, описание, цена, характеристики'}
+  hours: 10
+  kw: [məhsul səhifəsi, product page, страница товара]
+- id: cart
+  title: {az: Səbət, en: Shopping cart, ru: Корзина}
+  desc: {az: Məhsulların səbətə əlavə edilməsi və sifarişin formalaşdırılması, en: Adding products to the cart and placing the order, ru: Добавление товаров в корзину и оформление заказа}
+  hours: 16
+  requires: [product_catalog]
+  kw: [səbət, sifariş, cart, basket, order, checkout, корзина, заказ]
+- id: payment
+  title: {az: Onlayn ödəniş, en: Online payment, ru: Онлайн-оплата}
+  desc: {az: Kartla onlayn ödəniş provayderinin inteqrasiyası, en: Integration of an online card payment provider, ru: Интеграция провайдера онлайн-оплаты картой}
+  hours: 20
+  requires: [cart]
+  effects:
+    asks: [payment_provider]
+    security:
+    - {az: Ödəniş modulu üçün HTTPS məcburidir, en: HTTPS is mandatory for the payment module, ru: Для модуля оплаты HTTPS обязателен}
+    - {az: Kart məlumatları saxlanmır; ödəniş provayderin təhlükəsiz səhifəsində aparılır, en: Card data is not stored; payment is made on the provider's secure page, ru: Данные карт не хранятся; оплата проходит на защищённой странице провайдера}
+    - {az: Ödəniş əməliyyatlarının jurnalı (log) və təkrar ödənişdən qorunma, en: Payment transaction log and protection against duplicate payments, ru: Журнал платёжных операций и защита от повторной оплаты}
+    tech:
+    - {az: Ödəniş provayderi ilə API inteqrasiyası, en: API integration with the payment provider, ru: API-интеграция с платёжным провайдером}
+  kw: [ödəniş, kart ilə, onlayn ödəniş, payment, pay, card, оплат, платёж, платеж, картой]
+- id: user_account
+  title: {az: İstifadəçi hesabı, en: User account, ru: Личный кабинет пользователя}
+  desc: {az: 'Qeydiyyat, giriş, profil, parol bərpası', en: 'Registration, login, profile, password recovery', ru: 'Регистрация, вход, профиль, восстановление пароля'}
+  hours: 20
+  effects:
+    asks: [account_details]
+    security:
+    - {az: 'Autentifikasiya: parolların hash ilə saxlanması, brute-force qorunması', en: 'Authentication: passwords stored as hashes, brute-force protection', ru: 'Аутентификация: хранение паролей в виде хэшей, защита от перебора'}
+    - {az: Parol bərpası e-poçt vasitəsilə, en: Password recovery by e-mail, ru: Восстановление пароля по e-mail}
+    - {az: Şəxsi məlumatların qorunması (məxfilik siyasəti), en: Protection of personal data (privacy policy), ru: Защита персональных данных (политика конфиденциальности)}
+    tech:
+    - {az: Platforma və verilənlər bazası seçimi istifadəçi hesabı tələbinə görə yoxlanılır, en: Platform and database choice is reviewed because of the user account requirement, ru: Выбор платформы и базы данных пересматривается из-за требования личного кабинета}
+  kw: [kabinet, hesab, qeydiyyat, giriş, login, istifadəçi hesabı, account, sign in, registration, register, profile, аккаунт, кабинет, регистрац, вход]
+- id: booking
+  title: {az: Onlayn rezervasiya, en: Online booking, ru: Онлайн-бронирование}
+  desc: {az: 'Tarix/saat seçimi, təsdiq bildirişi, rezervasiyaların idarəsi', en: 'Date/time selection, confirmation notification, booking management', ru: 'Выбор даты и времени, уведомление о подтверждении, управление бронированиями'}
+  hours: 24
+  effects:
+    functional:
+    - {az: Rezervasiya təsdiqi e-poçt/SMS bildirişi ilə, en: Booking confirmation by e-mail/SMS notification, ru: Подтверждение бронирования уведомлением по e-mail/SMS}
+  kw: [rezervasiya, rezerv, randevu, booking, reservation, appointment, book, бронирован, резерв, запись]
+- id: gallery
+  title: {az: Qalereya, en: Gallery, ru: Галерея}
+  desc: {az: Şəkil və video qalereyası, en: Photo and video gallery, ru: Фото- и видеогалерея}
+  hours: 8
+  kw: [qalereya, şəkil galereyası, gallery, photos, галерея, фото]
+- id: portfolio_grid
+  title: {az: Portfolio / işlər şəbəkəsi, en: Portfolio / works grid, ru: Портфолио / сетка работ}
+  desc: {az: Görülmüş işlərin kateqoriya üzrə siyahısı, en: List of completed works by category, ru: Список выполненных работ по категориям}
+  hours: 10
+  kw: [portfolio, işlər, layihələr, works, projects, портфолио, работы, проекты]
+- id: case_study
+  title: {az: Case study səhifəsi, en: Case study page, ru: Страница кейса}
+  desc: {az: Layihənin ətraflı təsviri və nəticələri, en: Detailed description and results of a project, ru: Подробное описание проекта и результаты}
+  hours: 8
+  kw: [case, keys, case study, кейс]
+- id: pricing_table
+  title: {az: Qiymət cədvəli, en: Pricing table, ru: Таблица цен}
+  desc: {az: Paket və tariflərin müqayisəsi, en: Comparison of packages and plans, ru: Сравнение пакетов и тарифов}
+  hours: 6
+  kw: [qiymət, tarif, paket, pricing, price, prices, plan, package, цен, тариф, пакет]
+- id: faq
+  title: {az: Tez-tez verilən suallar (FAQ), en: Frequently asked questions (FAQ), ru: Часто задаваемые вопросы (FAQ)}
+  desc: {az: Sual-cavab bloku, en: Question-and-answer block, ru: Блок «вопрос-ответ»}
+  hours: 4
+  kw: [faq, sual, suallar, tez tez verilən, questions, вопрос, вопросы]
+- id: map
+  title: {az: Google Maps xəritəsi, en: Google Maps map, ru: Карта Google Maps}
+  desc: {az: Ünvanın xəritədə göstərilməsi, en: Showing the address on a map, ru: Показ адреса на карте}
+  hours: 3
+  kw: [xəritə, xerite, map, ünvan, maps, address, location, карта, адрес]
+- id: contact_form
+  title: {az: Əlaqə forması, en: Contact form, ru: Форма обратной связи}
+  desc: {az: 'Ad, e-poçt, mesaj; e-poçt inteqrasiyası', en: 'Name, e-mail, message; e-mail integration', ru: 'Имя, e-mail, сообщение; интеграция с e-mail'}
+  hours: 6
+  effects:
+    asks: [contact_email]
+    security:
+    - {az: Form üçün spam qorunması (captcha/honeypot), en: Spam protection for the form (captcha/honeypot), ru: Защита формы от спама (captcha/honeypot)}
+  kw: [əlaqə, forma, müraciət, contact, form, inquiry, контакт, форма, обратная связь]
+- id: social_links
+  title: {az: Sosial media keçidləri, en: Social media links, ru: Ссылки на соцсети}
+  desc: {az: Sosial şəbəkə ikonları və keçidləri, en: Social network icons and links, ru: Иконки и ссылки на социальные сети}
+  hours: 2
+  kw: [sosial, instagram, facebook, linkedin, соцсет, инстаграм]
+- id: blog
+  title: {az: Bloq / Xəbərlər, en: Blog / News, ru: Блог / Новости}
+  desc: {az: 'Məqalələr, kateqoriyalar, açar sözlər', en: 'Articles, categories, keywords', ru: 'Статьи, категории, ключевые слова'}
+  hours: 14
+  kw: [bloq, blog, məqalə, xəbər, xəbərlər, news, article, articles, блог, новости, статья, статьи]
+- id: career
+  title: {az: Karyera / Vakansiyalar, en: Careers / Vacancies, ru: Карьера / Вакансии}
+  desc: {az: Vakansiyalar və CV yükləmə forması, en: Vacancies and a CV upload form, ru: Вакансии и форма загрузки резюме}
+  hours: 12
+  effects:
+    asks: [cv_details]
+    security:
+    - {az: 'CV fayllarının yoxlanılması (tip və ölçü məhdudiyyəti), təhlükəsiz saxlama', en: 'CV file checks (type and size limits), secure storage', ru: 'Проверка файлов резюме (ограничения по типу и размеру), безопасное хранение'}
+  kw: [karyera, vakansiya, cv, iş elanları, career, careers, jobs, vacancy, vacancies, resume, карьера, вакансии, резюме]
+- id: newsletter
+  title: {az: Xəbər bülleteni abunəliyi, en: Newsletter subscription, ru: Подписка на рассылку}
+  desc: {az: E-poçt abunəliyi formu, en: E-mail subscription form, ru: Форма подписки по e-mail}
+  hours: 5
+  kw: [bülleten, abunə, newsletter, subscribe, subscription, рассылка, подписка]
+- id: live_chat
+  title: {az: Canlı çat, en: Live chat, ru: Онлайн-чат}
+  desc: {az: Üçüncü tərəf canlı çat vidceti, en: Third-party live chat widget, ru: Виджет онлайн-чата стороннего сервиса}
+  hours: 6
+  kw: [canlı çat, live chat, chat, онлайн-чат, чат]
+- id: search
+  title: {az: Sayt üzrə axtarış, en: Site search, ru: Поиск по сайту}
+  desc: {az: Məzmun və məhsullar üzrə axtarış, en: Search across content and products, ru: Поиск по контенту и товарам}
+  hours: 8
+  scope: global
+  kw: [axtarış, axtar, search, поиск]
+- id: multilingual
+  title: {az: Çoxdillilik, en: Multilingual support, ru: Многоязычность}
+  desc: {az: Sayt məzmununun bir neçə dildə təqdimatı və dil seçimi, en: Presenting site content in several languages with a language switcher, ru: Контент сайта на нескольких языках и переключатель языка}
+  hours: 12
+  scope: global
+  effects:
+    functional:
+    - {az: Hər səhifə üçün tərcümə məzmunu və dil seçimi, en: Translated content and language selection for every page, ru: Переведённый контент и выбор языка для каждой страницы}
+    tech:
+    - {az: 'Çoxdilli SEO: hreflang və dilə görə URL strukturu', en: 'Multilingual SEO: hreflang and language-based URL structure', ru: 'Многоязычное SEO: hreflang и структура URL по языкам'}
+  kw: [çoxdilli, dil, multilingual, languages, language, многоязыч, язык]
+- id: events
+  title: {az: Tədbirlər təqvimi, en: Events calendar, ru: Календарь событий}
+  desc: {az: 'Tədbirlərin tarix, yer və təsviri; siyahı və təqvim görünüşü', en: 'Events with date, place and description; list and calendar views', ru: 'События с датой, местом и описанием; список и календарь'}
+  hours: 12
+  kw: [tədbir, tedbir, event, calendar, təqvim, events, событ, календар]
+- id: timetable
+  title: {az: Dərs cədvəli, en: Timetable / schedule, ru: Расписание}
+  desc: {az: Dərs və ya növbə cədvəlinin göstərilməsi və yenilənməsi, en: Display and update of class or shift schedules, ru: Показ и обновление расписания занятий или смен}
+  hours: 12
+  kw: [cədvəl, cedvel, dərs, timetable, schedule, расписан]
+- id: courses
+  title: {az: Kurs / proqram siyahısı, en: Courses / programs list, ru: Список курсов / программ}
+  desc: {az: 'Təhsil proqramları, kurslar və onların təsviri', en: 'Education programs, courses and their descriptions', ru: 'Образовательные программы, курсы и их описания'}
+  hours: 12
+  kw: [kurs, proqram, course, program, faculty, факультет, курс]
+- id: admissions
+  title: {az: Qəbul / müraciət formu, en: Admissions / application form, ru: Форма поступления / заявки}
+  desc: {az: Qəbul üçün məlumat və sənəd göndərmə formu, en: Form to submit admissions information and documents, ru: Форма для отправки данных и документов для поступления}
+  hours: 10
+  effects:
+    asks: [contact_email]
+    security:
+    - {az: Form üçün spam qorunması (captcha/honeypot), en: Spam protection for the form (captcha/honeypot), ru: Защита формы от спама (captcha/honeypot)}
+  kw: [qəbul, qebul, admission, apply, application, поступлен, заявка]
+- id: documents
+  title: {az: Sənəd arxivi (PDF), en: Document archive (PDF), ru: Архив документов (PDF)}
+  desc: {az: 'Yüklənə bilən sənədlər, əmrlər və bülletenlər', en: 'Downloadable documents, orders and bulletins', ru: 'Скачиваемые документы, приказы и бюллетени'}
+  hours: 6
+  kw: [sənəd, sened, pdf, document, download, документ, скачат]
+- id: listings
+  title: {az: Elan / qurum kataloqu, en: Listings directory, ru: Каталог объявлений / организаций}
+  desc: {az: 'Kateqoriya, axtarış və filtr ilə siyahı', en: 'List with categories, search and filters', ru: 'Список с категориями, поиском и фильтрами'}
+  hours: 16
+  kw: [elan, directory, listings, qurum, şirkət siyahısı, справочник, объявлен]
+- id: listing_detail
+  title: {az: Elan / qurum səhifəsi, en: Listing detail page, ru: Страница объявления / организации}
+  desc: {az: Tək qurum və ya elanın ətraflı səhifəsi, en: Detail page for a single listing or organization, ru: Подробная страница одной организации или объявления}
+  hours: 8
+  requires: [listings]
+  kw: [elan səhifəsi, listing, company page, страница организации]

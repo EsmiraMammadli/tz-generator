@@ -1,0 +1,12 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-dotenv>=1.0
+pydantic>=2.7
+sqlalchemy>=2.0
+psycopg[binary]>=3.1   # Postgres (Supabase/Neon); SQLite üçün lazım deyil, amma zərər vermir
+pyyaml>=6.0
+python-docx>=1.1
+weasyprint>=62
+litellm>=1.50
+pytest>=8
+httpx>=0.27
